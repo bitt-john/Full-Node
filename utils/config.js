@@ -181,7 +181,10 @@ module.exports = function (propertiesFile) {
     if (propertiesFile !== localPropertiesFile) {
       console.warn('Trying local properties file...')
       try {
-        properties = ini.parseSync(localPropertiesFile)
+        properties = ini.parseSync(localPropertiesFile);
+        properties.bitcoindAutoConf = properties.bitcoindAutoConf !== 'false';
+        properties.bitcoindAutoRun = properties.bitcoindAutoRun !== 'false';
+        properties.redisAutoRun = properties.redisAutoRun !== 'false';
       }
       catch (e) {
         console.warn('Can\'t find local properties file:', localPropertiesFile)
